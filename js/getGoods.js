@@ -16,29 +16,27 @@ const getGoods = () => {
       goodBlock.classList.add('col-sm-6');
 
       goodBlock.innerHTML = `
-      <div div class="goods-card" >
-        <span class="label ${good.label ? 'null' : 'd-none'}">${good.label}</span>
-        <img src="db/${good.img}" alt="${good.name}" class="goods-image" />
-        <h3 class="goods-title">${good.name}</h3>
-        <p class="goods-description">${good.description}</p>
-        <button class="button goods-card-btn add-to-cart" data-id="${good.id}">
-          <span class="button-price">$${good.price}</span>
-        </button>
-      </div>
-      `;
+        <div div class="goods-card" >
+          <span class="label ${good.label ? 'null' : 'd-none'}">${good.label}</span>
+          <img src="db/${good.img}" alt="${good.name}" class="goods-image" />
+          <h3 class="goods-title">${good.name}</h3>
+          <p class="goods-description">${good.description}</p>
+          <button class="button goods-card-btn add-to-cart" data-id="${good.id}">
+            <span class="button-price">$${good.price}</span>
+          </button>
+        </div>
+        `;
 
       goodsContainer.append(goodBlock);
-
-      console.log(good);
     });
   };
 
   const getData = (value, category) => {
     fetch('/db/db.json') //обращаемся к файлу db.json
       .then((res) => res.json())
-      //then отрабатывает тогда, когда данные от вервера точно пришли
+      //res or response
+      //then отрабатывает тогда, когда данные от cервера точно пришли
       //res возвращаем объект, к которому применили метод json
-
       .then((data) => {
         const array = category ? data.filter((item) => item[category] === value) : data;
         //использовали тернарный оператор для усрощения записи условия
@@ -59,21 +57,20 @@ const getGoods = () => {
     link.addEventListener('click', (event) => {
       event.preventDefault(); //блочим стандартное поведение ссылок
       const linkValue = link.textContent; //достаем текстовое содержиние
-      const category = link.dataset.field; //достаем data атрибут
+      const category = link.dataset.field; //достаем data-атрибут
 
       getData(linkValue, category);
     });
   });
 
   if (
-    localStorage.getItem('goods') &&
-    window.location.pathname === '/goods.html'
+    localStorage.getItem('goods') && window.location.pathname === '/goods.html'
   ) {
     renderGoods(JSON.parse(localStorage.getItem('goods')));
   }
 
   if (more) {
-    more.addEventListener('click', () => {
+    more.addEventListener('click', (e) => {
       getData();
     });
   }
