@@ -31,7 +31,13 @@ const search = function () {
   };
 
   const getData = (value) => {
-    fetch('../db/db.json')
+    fetch('../db/db.json', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+
+    })
       .then((res) => res.json())
 
       .then((data) => {

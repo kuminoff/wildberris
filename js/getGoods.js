@@ -32,7 +32,13 @@ const getGoods = () => {
   };
 
   const getData = (value, category) => {
-    fetch('../db/db.json') //обращаемся к файлу db.json
+    fetch('../db/db.json', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+
+    }) //обращаемся к файлу db.json
       .then((res) => res.json())
       //res or response
       //then отрабатывает тогда, когда данные от cервера точно пришли
