@@ -1,0 +1,8 @@
+/*jshint esversion: 6 */
+import cart from './modules/cart';
+import getGoods from './modules/getGoods';
+import search from './modules/search';
+
+cart();
+getGoods();
+search();
